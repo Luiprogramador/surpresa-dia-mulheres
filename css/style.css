@@ -1,0 +1,459 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: #1a1a1a;
+    color: white;
+    overflow: hidden; /* Impede scroll manual para focar na paginação */
+}
+
+.step {
+    display: none; /* Esconde todas por padrão */
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.step.active {
+    display: flex; /* Mostra apenas a ativa */
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Background Imersivo */
+.bg-image, .bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+.bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Escurece a foto para o texto aparecer */
+    z-index: -1;
+}
+
+/* Conteúdo */
+.content {
+    max-width: 500px;
+    z-index: 1;
+}
+
+h1, h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #ff85a2; /* Um rosa vibrante */
+}
+
+p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* Botões */
+/* Container para alinhar os botões lado a lado */
+.nav-btns {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Base de todos os botões */
+button {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 12px 32px;
+    border-radius: 6px; /* Borda levemente arredondada, mais moderna */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px; /* Espaçamento entre letras para dar elegância */
+    text-transform: uppercase;
+}
+
+/* Botão Principal (Avançar/Começar) - Estilo Ghost com Neon sutil */
+.btn-primary {
+    background-color: transparent;
+    color: #ff85a2;
+    border: 2px solid #ff85a2;
+    box-shadow: 0 0 10px rgba(255, 133, 162, 0.1);
+}
+
+.btn-primary:hover {
+    background-color: #ff85a2;
+    color: #1a1a1a; /* Cor do fundo escuro para dar contraste */
+    box-shadow: 0 0 20px rgba(255, 133, 162, 0.5);
+    transform: translateY(-2px); /* Efeito de flutuar ao passar o mouse */
+}
+
+/* Botão Secundário (Voltar) - Estilo Glassmorphism (Vidro) */
+.btn-secondary {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px); /* Embaça o fundo atrás do botão */
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Estilo da Caixa de Texto Longo */
+.letter-box {
+    background: rgba(26, 26, 26, 0.75); /* Fundo escuro transparente */
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    width: 90%;
+    max-width: 600px;
+}
+
+.scrollable-text {
+    max-height: 45vh; /* Limita a altura para caber na tela do celular */
+    overflow-y: auto; /* Adiciona rolagem apenas se o texto for muito grande */
+    text-align: left; /* Textos longos são mais fáceis de ler alinhados à esquerda */
+    margin-bottom: 25px;
+    padding-right: 15px; /* Espaço para a barra de rolagem */
+}
+
+.scrollable-text p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 15px;
+    color: #e0e0e0;
+}
+
+/* Personalizando a Barra de Rolagem (Scrollbar) */
+.scrollable-text::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollable-text::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.scrollable-text::-webkit-scrollbar-thumb {
+    background-color: #ff85a2; /* Mesma cor do botão primário */
+    border-radius: 10px;
+}
+/* Estilos do Slideshow de Fundo */
+.bg-slideshow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Garante largura total da tela */
+    height: 100vh; /* Garante altura total da tela */
+    z-index: -2;
+    overflow: hidden;
+    background-color: #1a1a1a; /* Cor de fundo caso a imagem demore a carregar */
+}
+
+.bg-slideshow .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Preenche sem distorcer */
+    object-position: center; /* Centraliza o corte (importante para selfies!) */
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+}
+
+.bg-slideshow .slide.active {
+    opacity: 1;
+}
+
+/* Container dos Corações */
+.hearts-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0; /* Fica atrás do texto, mas na frente da imagem de fundo */
+    pointer-events: none; /* Garante que ela possa clicar nos botões */
+}
+
+/* O elemento Coração em si */
+.heart {
+    position: absolute;
+    bottom: 100%; /* Começa acima da tela */
+    font-size: 20px;
+    color: #ff85a2; /* Cor rosa vibrante */
+    opacity: 0.8;
+    animation: fall 3s linear infinite; /* Animação de queda de 3 segundos */
+}
+
+/* Animação de queda */
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(110vh) rotate(360deg); /* Cai até abaixo da tela e gira */
+        opacity: 0; /* Desaparece suavemente no final */
+    }
+}
+
+/* Estilos do Player de Música */
+.music-player {
+    background: rgba(26, 26, 26, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.album-cover {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* Deixa redondo como um disco */
+    overflow: hidden;
+    border: 4px solid #ff85a2;
+    box-shadow: 0 0 20px rgba(255, 133, 162, 0.3);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.album-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Animação do disco girando */
+.spin {
+    animation: spinRecord 5s linear infinite;
+}
+
+@keyframes spinRecord {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.song-info h3 {
+    font-size: 1.4rem;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.song-info p {
+    font-size: 1rem;
+    color: #b3b3b3;
+    margin-bottom: 20px;
+}
+
+/* Botão específico do Play */
+.btn-play {
+    background-color: #ff85a2;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 40px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.btn-play:hover {
+    background-color: #ff4d7d;
+    transform: scale(1.05);
+}
+
+/* Estilos do Contador de Tempo */
+.time-counter {
+    margin: 25px 0;
+    padding: 15px;
+    background: rgba(26, 26, 26, 0.5);
+    border: 1px solid rgba(255, 133, 162, 0.3);
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+}
+
+.time-counter p {
+    font-size: 0.9rem;
+    color: #e0e0e0;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.counter-box {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.time-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.time-unit span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ff85a2;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 12px;
+    border-radius: 8px;
+    min-width: 50px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.time-unit small {
+    margin-top: 5px;
+    font-size: 0.7rem;
+    color: #b3b3b3;
+    text-transform: lowercase;
+}
+
+/* =========================================
+   TELA DE CARREGAMENTO (LOADER)
+   ========================================= */
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #1a1a1a; /* Mantém o tema escuro elegante */
+    z-index: 9999; /* Fica por cima de absolutamente tudo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+}
+
+/* Classe que o JavaScript vai adicionar para sumir com o loader */
+.loader-container.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-heart {
+    font-size: 60px;
+    color: #ff85a2;
+    animation: pulse 1.2s infinite;
+    margin-bottom: 20px;
+}
+
+.loader-container p {
+    color: #e0e0e0;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+/* Animação do coração pulsando */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+/* Prepara os containers para o ambiente 3D */
+.music-player, .letter-box {
+    transform-style: preserve-3d;
+}
+
+/* Faz a capa do álbum saltar 40 pixels para frente durante o tilt */
+.album-cover {
+    transform: translateZ(40px);
+}
+
+/* Faz o texto da carta e as informações da música saltarem 30 pixels */
+.song-info, .scrollable-text {
+    transform: translateZ(30px);
+}
+
+/* Faz os botões saltarem 50 pixels para parecerem flutuar acima de tudo */
+.nav-btns, .btn-play {
+    transform: translateZ(50px);
+}
+
+/* =========================================
+   RESPONSIVIDADE (Telas de Celular)
+   ========================================= */
+@media (max-width: 768px) {
+    /* Diminui um pouco os títulos para não quebrarem a linha de forma estranha */
+    h1, h2 {
+        font-size: 2rem; 
+    }
+
+    /* Ajusta o tamanho da fonte dos parágrafos */
+    p, .scrollable-text p {
+        font-size: 1rem; 
+    }
+
+    /* Aumenta a área da carta para aproveitar bem a tela do celular */
+    .letter-box {
+        width: 95%;
+        padding: 20px; 
+    }
+
+    /* Deixa a área de rolagem do texto um pouco mais alta */
+    .scrollable-text {
+        max-height: 55vh; 
+    }
+
+    /* Ajusta os botões para caberem confortavelmente lado a lado */
+    button {
+        padding: 10px 20px; 
+        font-size: 0.8rem;
+    }
+
+    /* Reduz um pouco o tamanho do player de música e do disco */
+    .music-player {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .album-cover {
+        width: 120px;
+        height: 120px; 
+    }
+    
+    /* Garante que os botões de navegação não fiquem colados nas bordas */
+    .nav-btns {
+        gap: 10px;
+    }
+}
+

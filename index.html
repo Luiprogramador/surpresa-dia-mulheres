@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para uma pessoa incrível!! </title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+        <div id="loader" class="loader-container">
+            <div class="loader-heart">❤</div>
+            <p>Preparando uma surpresa...</p>
+        </div>
+    <main id="app">
+        <section class="step active" id="step-1">
+            <div class="bg-overlay"></div>
+            <img src="assets/imgs/1000271536.jpg" alt="Ela" class="bg-image">
+            <div class="content">
+                <h1>Oi, Gatinha!</h1>
+                <p>Preparei uma pequena surpresa para o seu dia...</p>
+                <button class="btn-primary" onclick="nextStep(2)">Começar</button>
+            </div>
+        </section>
+
+        <section class="step" id="step-2">
+            <div class="bg-overlay"></div>
+            <img src="assets/imgs/1000263378.mp4" alt="Fundo" class="bg-image" style="filter: blur(10px); transform: scale(1.1);">
+            
+            <div class="content">
+                <h2>Dê o play... </h2>
+                <p>Toda boa história precisa de uma trilha sonora.</p>
+                
+                <div class="music-player" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.4">
+                    <div class="album-cover" id="album-cover">
+                        <img src="assets/imgs/111756432.jpg" alt="Capa da Música">
+                    </div>
+                    <div class="song-info">
+                        <h3>Put your head on my shoulder</h3>
+                        <p>Paul Anka</p>
+                    </div>
+                    
+                    <audio id="bg-music" loop>
+                        <source src="assets/audio/nossa_musica.mp3" type="audio/mpeg">
+                    </audio>
+                    
+                    <button id="play-btn" class="btn-play" onclick="togglePlay()">▶ Play</button>
+                </div>
+
+                <div class="nav-btns" style="margin-top: 40px;">
+                    <button class="btn-secondary" onclick="nextStep(1)">Voltar</button>
+                    <button class="btn-primary" onclick="nextStep(3)">Continuar</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="step" id="step-3">
+        <div class="bg-overlay"></div>
+        
+            <div class="bg-slideshow">
+                <img src="assets/imgs/1000271536.jpg" class="slide active" alt="Foto 1">
+                <video src="assets/videos/1000271874.mp4" class="slide" autoplay muted loop playsinline></video>
+                <img src="assets/imgs/1000270350.jpg" class="slide" alt="Foto 2">
+                <img src="assets/imgs/1000267789.jpg" class="slide" alt="Foto 3">
+            </div>
+
+            <div class="content letter-box" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+                <h2>Para você...</h2>
+
+                <div class="scrollable-text">
+                    <p>Pode parecer loucura pensar que a gente se conheceu no dia 28 de fevereiro. A sensação é de que essa sintonia já existe há muito mais tempo.</p>
+                    
+                    <p>Nesses poucos dias, pude notar detalhes incríveis sobre quem você é. A sua forma autêntica de levar a vida, essa energia contagiante que fica evidente em cada foto, e o quanto a sua companhia tem feito os meus dias melhores.</p>
+                    
+                    <p>Você tem uma luz própria e um jeito único que chamou minha atenção desde o primeiro momento. Hoje é o seu dia, e eu queria transformar um pouco dessa admiração em algo que te fizesse sorrir.</p>
+                    
+                    <p>Que você continue sendo essa mulher forte, expressiva e cheia de atitude. O mundo fica bem mais interessante com você nele.</p>
+                </div>
+
+                <div class="nav-btns">
+                    <button class="btn-secondary" onclick="nextStep(2)">Voltar</button>
+                    <button class="btn-primary" onclick="nextStep(4)">Continuar</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="step" id="step-4">
+            <div class="content">
+                <h2>Feliz Dia das Mulheres!</h2>
+                <p>Que você nunca perca essa energia incrível. Admiro muito a mulher que estou conhecendo.</p>
+                <p class="signature">Com carinho, Lui</p>
+                
+                <div class="time-counter">
+                    <p>Construindo nossa conexão há:</p>
+                    <div class="counter-box">
+                        <div class="time-unit"><span id="days">00</span><small>dias</small></div>
+                        <div class="time-unit"><span id="hours">00</span><small>horas</small></div>
+                        <div class="time-unit"><span id="minutes">00</span><small>min</small></div>
+                        <div class="time-unit"><span id="seconds">00</span><small>seg</small></div>
+                    </div>
+                </div>
+                
+                <button class="btn-secondary" onclick="nextStep(1)">Ver de novo</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
